@@ -1,0 +1,20 @@
+# Informa que estamos habilitando a edição no módulo
+# 'RewriteEngine' do Apache
+RewriteEngine On
+
+# Parâmetro -d verifica se é um diretório existente.
+RewriteCond %{REQUEST_FILENAME} !-d
+# Parâmetro -f verifica se é um arquivo existente.
+RewriteCond %{REQUEST_FILENAME} !-f
+# Parâmetro -l verifica se é um caminho para um link simbólico.
+RewriteCond %{REQUEST_FILENAME} !-l
+
+# Na regra abaixo definimos:
+# Parâmetro QSA(Query String Append) indica que será possível passar
+# parâmetros via Query String e L(Last) indica que, caso essa regra
+# seja atendida pela URL, ela encerra as demais verificações.
+# Definimos o arquivo index.php como o principal para receber a URL
+# através da variável via GET(url).
+# '$1' indica que será passado a primeira expressão regular que no caso
+# é '^(.+)$'.
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
